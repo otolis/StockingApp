@@ -1,0 +1,26 @@
+.mainGridCanvas {
+    background-color: var(--paperVellum);
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: var(--gridSize) var(--gridSize);
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+    transition: background-color 0.3s ease;
+}
+
+.dark .mainGridCanvas {
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.canvasContent {
+    position: relative;
+    padding: calc(var(--gridSize) * 2);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: calc(var(--gridSize) * 2);
+}

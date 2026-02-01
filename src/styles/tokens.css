@@ -1,0 +1,27 @@
+:root {
+    /* Color Palette: Technical Grayscale */
+    --baseInk: #0A0A0A;
+    --paperVellum: #F7F5F0;
+    --paperVellumDark: #1A1A1A;
+    --technicalAmber: #FFB800;
+    --technicalTeal: #00FFC2;
+    --technicalRed: #FF4D4D;
+
+    /* Typography: Technical Mono */
+    --monoFont: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --headingWeight: 800;
+    --interfaceTextSize: 13px;
+
+    /* Tactile Metrics */
+    --tactileStroke: 1.5px;
+    --nodeElevationSmall: 2px;
+    --nodeElevationLarge: 12px;
+    --gridSize: 24px;
+    --technicalShadow: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+    --baseInk: #F7F5F0;
+    --paperVellum: #0A0A0A;
+    --technicalShadow: rgba(255, 255, 255, 0.05);
+}

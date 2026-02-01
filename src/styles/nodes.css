@@ -1,0 +1,57 @@
+.tactileNode {
+    border: var(--tactileStroke) solid var(--baseInk);
+    background: var(--paperVellum);
+    padding: var(--gridSize);
+    font-family: var(--monoFont);
+    position: relative;
+    box-shadow: 4px 4px 0px var(--baseInk);
+    transition: transform 0.1s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.1s ease;
+}
+
+.tactileNode:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--baseInk);
+}
+
+.tactileNode:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--baseInk);
+}
+
+.nodeHeader {
+    border-bottom: var(--tactileStroke) solid var(--baseInk);
+    margin: calc(var(--gridSize) * -1);
+    margin-bottom: var(--gridSize);
+    padding: calc(var(--gridSize) / 2) var(--gridSize);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.03);
+    font-weight: var(--headingWeight);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+}
+
+.technicalLabel {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--baseInk);
+    opacity: 0.6;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.technicalValue {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--baseInk);
+}
+
+.badgeMono {
+    border: 1px solid var(--baseInk);
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
