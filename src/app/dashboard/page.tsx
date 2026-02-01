@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { InventoryItem } from "@/types";
-import { LayoutDashboard, Package, Search, Settings, Menu } from "lucide-react";
+import { LayoutDashboard, Package, Search, Settings, Menu, AlertCircle } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
+import { normalizeInventoryItem } from "@/lib/dataUtils";
 
 export default function DashboardPage() {
     const { user, loading, logout, isAdmin } = useAuth();
@@ -30,23 +31,9 @@ export default function DashboardPage() {
         if (!user) return;
         const q = query(collection(db, "inventoryItems"), where("organizationId", "==", user.organizationId));
         return onSnapshot(q, (snapshot) => {
-            const itemsList: InventoryItem[] = [];
-            snapshot.forEach((doc) => {
-                const rawData = doc.data();
-                // Normalize field names - Firestore has trailing spaces in field names
-                const data: InventoryItem = {
-                    id: doc.id,
-                    name: rawData.name || rawData["name "] || "",
-                    sku: rawData.sku || rawData["sku "] || "",
-                    category: rawData.category || rawData["category "] || "",
-                    quantity: rawData.quantity ?? rawData["quantity "] ?? 0,
-                    minThreshold: rawData.minThreshold ?? rawData["minThreshold "] ?? 0,
-                    organizationId: rawData.organizationId || rawData["organizationId "] || "",
-                    createdAt: rawData.createdAt || rawData["createdAt "],
-                    updatedAt: rawData.updatedAt || rawData["updatedAt "],
-                };
-                itemsList.push(data);
-            });
+            const itemsList: InventoryItem[] = snapshot.docs.map(doc =>
+                normalizeInventoryItem(doc.id, doc.data())
+            );
             setItems(itemsList);
         });
     }, [user]);
@@ -111,13 +98,54 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Inventory Table */}
+                {/* Inventory Table (Desktop) / Cards (Mobile) */}
                 <div className="border-2 border-white">
-                    <div className="flex justify-between items-center px-6 py-3 border-b-2 border-white bg-white/5">
+                    <div className="flex justify-between items-center px-4 md:px-6 py-3 border-b-2 border-white bg-white/5">
                         <span className="font-bold text-sm uppercase tracking-wide">All Items</span>
                         <span className="text-xs border border-white px-2 py-1">{filteredItems.length} records</span>
                     </div>
-                    <div className="overflow-x-auto">
+
+                    {/* Mobile Card Layout (Hidden on LG+) */}
+                    <div className="lg:hidden p-4 space-y-4">
+                        {filteredItems.length === 0 ? (
+                            <div className="text-center py-10 opacity-40 text-xs">No items found</div>
+                        ) : (
+                            filteredItems.map(item => {
+                                const qty = Number(item.quantity) || 0;
+                                const threshold = Number(item.minThreshold) || 0;
+                                const isLowStock = qty < threshold;
+                                return (
+                                    <div key={item.id} className="border-2 border-white/20 p-4 bg-white/5 hover:border-white transition-colors">
+                                        <div className="flex justify-between items-start mb-3">
+                                            <div className="font-black uppercase text-base">{item.name}</div>
+                                            <span className={`px-2 py-0.5 text-[10px] font-black uppercase border ${isLowStock ? 'bg-red-500/20 text-red-400 border-red-500' : 'bg-green-500/20 text-green-400 border-green-500'}`}>
+                                                {isLowStock ? 'Low Stock' : 'In Stock'}
+                                            </span>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <div className="text-[10px] uppercase text-white/40 mb-1">SKU</div>
+                                                <div className="text-xs font-mono font-bold">{item.sku}</div>
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] uppercase text-white/40 mb-1">Stock Level</div>
+                                                <div className={`text-xl font-black ${isLowStock ? 'text-red-500' : 'text-[#00FFC2]'}`}>
+                                                    {qty}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] uppercase text-white/40 mb-1">Category</div>
+                                                <div className="text-xs uppercase font-bold">{item.category || "General"}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        )}
+                    </div>
+
+                    {/* Desktop Table Layout (Visible on LG+) */}
+                    <div className="hidden lg:block overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
                                 <tr className="border-b border-white/20 text-[10px] font-bold uppercase text-white/60">
