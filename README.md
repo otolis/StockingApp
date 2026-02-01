@@ -1,6 +1,6 @@
 # Nexus Stock
 
-Nexus Stock is a high-performance inventory management system built with a "Tactile-Industrial" aesthetic. Designed for speed and mobile efficiency, it combines cutting-edge web technologies with a robust cloud backend.
+Nexus Stock is a high-performance inventory management system built with a "Tactile-Industrial" aesthetic. **[Live Demo](https://nexus-stock-a2dba.web.app/)**
 
 ![Version](https://img.shields.io/badge/version-0.1.0-amber)
 ![License](https://img.shields.io/badge/license-MIT-white)
