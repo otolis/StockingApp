@@ -1,11 +1,115 @@
 "use client";
 
 import Link from "next/link";
-import { Package, ArrowLeft, Code, Database, Palette, Shield, Calendar, Users } from "lucide-react";
+import { Package, ArrowLeft, Code, Shield, Calendar } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { animate, stagger } from "animejs";
 
 export default function AboutPage() {
+    const sectionsRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // Header animations on load
+        animate('.about-header > *', {
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 800,
+            easing: 'easeOutExpo',
+            delay: stagger(100, { start: 200 }),
+        });
+
+        // Scroll-triggered animations for sections
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50px',
+            threshold: 0.1,
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    animate(entry.target, {
+                        opacity: [0, 1],
+                        translateY: [40, 0],
+                        duration: 800,
+                        easing: 'easeOutExpo',
+                    });
+                    sectionObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.animate-section').forEach((section) => {
+            sectionObserver.observe(section);
+        });
+
+        // Tech stack list items stagger
+        const techObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    animate('.tech-item', {
+                        opacity: [0, 1],
+                        translateX: [-20, 0],
+                        duration: 600,
+                        easing: 'easeOutExpo',
+                        delay: stagger(50),
+                    });
+                    techObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const techSection = document.querySelector('.tech-section');
+        if (techSection) techObserver.observe(techSection);
+
+        // Feature cards stagger
+        const featureObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    animate('.feature-item', {
+                        opacity: [0, 1],
+                        scale: [0.9, 1],
+                        duration: 600,
+                        easing: 'easeOutExpo',
+                        delay: stagger(100),
+                    });
+                    featureObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const featureSection = document.querySelector('.feature-section');
+        if (featureSection) featureObserver.observe(featureSection);
+
+        // CTA button
+        const ctaObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    animate('.cta-button', {
+                        opacity: [0, 1],
+                        scale: [0.8, 1],
+                        duration: 800,
+                        easing: 'easeOutElastic(1, 0.5)',
+                    });
+                    ctaObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const ctaSection = document.querySelector('.cta-section');
+        if (ctaSection) ctaObserver.observe(ctaSection);
+
+        return () => {
+            sectionObserver.disconnect();
+            techObserver.disconnect();
+            featureObserver.disconnect();
+            ctaObserver.disconnect();
+        };
+    }, []);
+
     return (
-        <div className="min-h-screen bg-black text-white font-mono">
+        <div className="min-h-screen bg-black text-white font-mono overflow-x-hidden">
             {/* Navigation */}
             <nav className="fixed top-0 left-0 w-full z-50 p-6 bg-black/80 backdrop-blur-md border-b-2 border-white">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -22,16 +126,16 @@ export default function AboutPage() {
             </nav>
 
             {/* Main Content */}
-            <main className="max-w-4xl mx-auto px-8 pt-40 pb-32">
+            <main ref={sectionsRef} className="max-w-4xl mx-auto px-8 pt-40 pb-32">
                 <div className="space-y-16">
                     {/* Header */}
-                    <div>
-                        <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-4">About</h1>
-                        <p className="text-lg opacity-70">Learn more about Nexus Stock and the technology behind it.</p>
+                    <div className="about-header">
+                        <h1 className="opacity-0 text-5xl md:text-6xl font-black uppercase tracking-tighter mb-4">About</h1>
+                        <p className="opacity-0 text-lg opacity-70">Learn more about Nexus Stock and the technology behind it.</p>
                     </div>
 
                     {/* Project Info */}
-                    <section className="border-2 border-white p-8">
+                    <section className="animate-section opacity-0 border-2 border-white p-8">
                         <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
                             <Package className="text-[#FFB800]" size={24} />
                             The Project
@@ -48,7 +152,7 @@ export default function AboutPage() {
                     </section>
 
                     {/* Timeline */}
-                    <section className="border-2 border-[#FFB800] p-8">
+                    <section className="animate-section opacity-0 border-2 border-[#FFB800] p-8">
                         <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
                             <Calendar className="text-[#FFB800]" size={24} />
                             Project Timeline
@@ -70,7 +174,7 @@ export default function AboutPage() {
                     </section>
 
                     {/* Tech Stack */}
-                    <section className="border-2 border-[#00FFC2] p-8">
+                    <section className="tech-section animate-section opacity-0 border-2 border-[#00FFC2] p-8">
                         <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
                             <Code className="text-[#00FFC2]" size={24} />
                             Technology Stack
@@ -79,19 +183,19 @@ export default function AboutPage() {
                             <div className="space-y-4">
                                 <h3 className="font-bold uppercase text-sm text-white/60">Frontend</h3>
                                 <ul className="space-y-2">
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#00FFC2]"></span>
                                         Next.js 14 (React Framework)
                                     </li>
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#00FFC2]"></span>
                                         TypeScript
                                     </li>
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#00FFC2]"></span>
                                         Tailwind CSS
                                     </li>
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#00FFC2]"></span>
                                         Lucide React (Icons)
                                     </li>
@@ -100,19 +204,19 @@ export default function AboutPage() {
                             <div className="space-y-4">
                                 <h3 className="font-bold uppercase text-sm text-white/60">Backend & Services</h3>
                                 <ul className="space-y-2">
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#FFB800]"></span>
                                         Firebase Authentication
                                     </li>
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#FFB800]"></span>
                                         Cloud Firestore (Database)
                                     </li>
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#FFB800]"></span>
                                         Firebase Analytics
                                     </li>
-                                    <li className="flex items-center gap-3 text-sm">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
                                         <span className="w-2 h-2 bg-[#FFB800]"></span>
                                         Google Cloud Platform
                                     </li>
@@ -122,25 +226,25 @@ export default function AboutPage() {
                     </section>
 
                     {/* Features */}
-                    <section className="border-2 border-white p-8">
+                    <section className="feature-section animate-section opacity-0 border-2 border-white p-8">
                         <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
                             <Shield size={24} />
                             Key Features
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="p-4 border border-white/20">
+                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
                                 <h3 className="font-bold uppercase text-sm mb-2">Real-Time Sync</h3>
                                 <p className="text-xs opacity-60">Instant updates across all connected devices</p>
                             </div>
-                            <div className="p-4 border border-white/20">
+                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
                                 <h3 className="font-bold uppercase text-sm mb-2">Smart Alerts</h3>
                                 <p className="text-xs opacity-60">Automated low-stock notifications</p>
                             </div>
-                            <div className="p-4 border border-white/20">
+                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
                                 <h3 className="font-bold uppercase text-sm mb-2">Role-Based Access</h3>
                                 <p className="text-xs opacity-60">Admin and viewer permission levels</p>
                             </div>
-                            <div className="p-4 border border-white/20">
+                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
                                 <h3 className="font-bold uppercase text-sm mb-2">Google Auth</h3>
                                 <p className="text-xs opacity-60">Secure authentication with Google</p>
                             </div>
@@ -148,10 +252,10 @@ export default function AboutPage() {
                     </section>
 
                     {/* CTA */}
-                    <div className="text-center pt-8">
+                    <div className="cta-section text-center pt-8">
                         <Link
                             href="/login"
-                            className="inline-flex items-center gap-4 px-10 py-5 border-4 border-white bg-[#FFB800] text-black text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                            className="cta-button opacity-0 inline-flex items-center gap-4 px-10 py-5 border-4 border-white bg-[#FFB800] text-black text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
                         >
                             Get Started Now
                         </Link>
