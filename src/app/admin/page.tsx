@@ -7,7 +7,8 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { InventoryItem } from "@/types";
 import {
-    LayoutDashboard, Package, AlertTriangle, Search, Plus, Edit2, Trash2, Shield, Settings, Menu
+    LayoutDashboard, Package, AlertTriangle, Search, Plus, Edit2, Trash2, Shield, Settings, Menu,
+    ChevronDown, ChevronRight
 } from "lucide-react";
 import { useInventory } from "@/hooks/useInventory";
 import ItemModal from "@/components/ItemModal";
@@ -24,6 +25,7 @@ export default function AdminPage() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
+    const [isAlertsExpanded, setIsAlertsExpanded] = useState(false);
 
     const categories = ["Electronics", "Furniture", "Office Supplies", "Perishables", "Other"];
 
@@ -126,30 +128,41 @@ export default function AdminPage() {
                 {lowStockItems.length > 0 && (
                     <div className="mb-8">
                         <div className="border-2 border-amber-500">
-                            <div className="flex justify-between items-center px-6 py-3 bg-amber-500 text-black">
-                                <span className="flex items-center gap-2 font-bold">
-                                    <AlertTriangle size={14} /> Critical Attention
+                            <button
+                                onClick={() => setIsAlertsExpanded(!isAlertsExpanded)}
+                                className="w-full flex justify-between items-center px-6 py-3 bg-amber-500 text-black hover:bg-amber-400 transition-colors"
+                            >
+                                <span className="flex items-center gap-2 font-black uppercase tracking-widest text-sm">
+                                    <AlertTriangle size={18} strokeWidth={3} /> Critical Attention
                                 </span>
-                                <span className="text-xs font-bold uppercase tracking-widest">{lowStockItems.length} alerts</span>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 md:p-6 bg-amber-500/5">
-                                {lowStockItems.map(item => (
-                                    <div key={item.id} className="p-4 border-2 border-amber-500/30 bg-black hover:border-amber-500 transition cursor-pointer shadow-[4px_4px_0px_rgba(245,158,11,0.2)]"
-                                        onClick={() => { setEditingItem(item); setIsModalOpen(true); }}>
-                                        <div className="font-black text-sm uppercase mb-3 text-amber-500">{item.name}</div>
-                                        <div className="flex justify-between items-end">
-                                            <div className="text-[10px] opacity-40 uppercase">Stock Level</div>
-                                            <div className="text-red-500 font-black text-2xl leading-none">
-                                                {Number(item.quantity)}
+                                <div className="flex items-center gap-4">
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-black text-amber-500 px-2 py-0.5">
+                                        {lowStockItems.length} alerts
+                                    </span>
+                                    {isAlertsExpanded ? <ChevronDown size={20} strokeWidth={3} /> : <ChevronRight size={20} strokeWidth={3} />}
+                                </div>
+                            </button>
+
+                            {isAlertsExpanded && (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 md:p-6 bg-amber-500/5 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    {lowStockItems.map(item => (
+                                        <div key={item.id} className="p-4 border-2 border-amber-500/30 bg-black hover:border-amber-500 transition cursor-pointer shadow-[4px_4px_0px_rgba(245,158,11,0.2)]"
+                                            onClick={() => { setEditingItem(item); setIsModalOpen(true); }}>
+                                            <div className="font-black text-sm uppercase mb-3 text-amber-500">{item.name}</div>
+                                            <div className="flex justify-between items-end">
+                                                <div className="text-[10px] opacity-40 uppercase">Stock Level</div>
+                                                <div className="text-red-500 font-black text-2xl leading-none">
+                                                    {Number(item.quantity)}
+                                                </div>
+                                            </div>
+                                            <div className="mt-3 pt-3 border-t border-white/10 flex justify-between items-center">
+                                                <span className="text-[10px] opacity-40 font-mono italic">{item.sku}</span>
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-amber-500/60">Configure</span>
                                             </div>
                                         </div>
-                                        <div className="mt-3 pt-3 border-t border-white/10 flex justify-between items-center">
-                                            <span className="text-[10px] opacity-40 font-mono italic">{item.sku}</span>
-                                            <span className="text-[10px] font-black uppercase tracking-widest text-amber-500/60">Configure</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
