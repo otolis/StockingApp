@@ -68,7 +68,7 @@ export default function ItemModal({
             <div className="bg-[#F7F5F0] dark:bg-[#0A0A0A] w-full max-w-md border-4 border-black dark:border-white shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,1)] animate-in fade-in zoom-in duration-150">
                 <div className="flex items-center justify-between p-6 border-b-4 border-black dark:border-white bg-[#FFB800]">
                     <h2 className="text-xl font-black text-black uppercase tracking-tighter">
-                        {initialData ? "UPDATE_ENTITY" : "SPAWN_NEW_ENTITY"}
+                        {initialData ? "Edit Item" : "New Item"}
                     </h2>
                     <button onClick={onClose} className="p-2 border-2 border-black hover:bg-black hover:text-white transition">
                         <X size={20} />
@@ -77,31 +77,31 @@ export default function ItemModal({
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6">
                     <div>
-                        <div className="technicalLabel">ENTITY_NAME</div>
+                        <div className="technicalLabel">Name</div>
                         <input
                             required
                             type="text"
-                            placeholder="INPUT_NAME..."
-                            className="w-full px-4 py-3 border-2 border-black dark:border-white bg-transparent outline-none focus:bg-white dark:focus:bg-black font-bold uppercase text-xs transition"
+                            placeholder="Enter name..."
+                            className="w-full px-4 py-3 border-2 border-black dark:border-white bg-transparent outline-none focus:bg-white dark:focus:bg-black font-bold text-xs transition"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         />
                     </div>
 
                     <div>
-                        <div className="technicalLabel">SKU_IDENTIFIER</div>
+                        <div className="technicalLabel">SKU</div>
                         <input
                             required
                             type="text"
-                            placeholder="INPUT_SKU..."
-                            className="w-full px-4 py-3 border-2 border-black dark:border-white bg-transparent outline-none focus:bg-white dark:focus:bg-black font-bold uppercase text-xs transition"
+                            placeholder="Enter SKU..."
+                            className="w-full px-4 py-3 border-2 border-black dark:border-white bg-transparent outline-none focus:bg-white dark:focus:bg-black font-bold text-xs transition"
                             value={formData.sku}
                             onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
                         />
                     </div>
 
                     <div>
-                        <div className="technicalLabel">RESOURCE_CATEGORY</div>
+                        <div className="technicalLabel">Category</div>
                         <select
                             className="w-full px-4 py-3 border-2 border-black dark:border-white bg-transparent outline-none focus:bg-white dark:focus:bg-black font-bold uppercase text-xs transition appearance-none"
                             value={formData.category}
@@ -115,7 +115,7 @@ export default function ItemModal({
 
                     <div className="grid grid-cols-2 gap-6">
                         <div>
-                            <div className="technicalLabel">VOL_QUANTITY</div>
+                            <div className="technicalLabel">Quantity</div>
                             <input
                                 required
                                 type="number"
@@ -126,7 +126,7 @@ export default function ItemModal({
                             />
                         </div>
                         <div>
-                            <div className="technicalLabel">MIN_THRESHOLD</div>
+                            <div className="technicalLabel">Min Threshold</div>
                             <input
                                 required
                                 type="number"
@@ -144,14 +144,14 @@ export default function ItemModal({
                             onClick={onClose}
                             className="flex-1 py-3 border-2 border-black dark:border-white font-black uppercase text-xs hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition"
                         >
-                            ABORT
+                            Cancel
                         </button>
                         <button
                             disabled={loading}
                             type="submit"
                             className="flex-1 py-3 border-2 border-black dark:border-white bg-[#00FFC2] text-black font-black uppercase text-xs active:translate-y-1 transition shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]"
                         >
-                            {loading ? "EXECUTING..." : "COMMIT_CHANGES"}
+                            {loading ? "Saving..." : "Save"}
                         </button>
                     </div>
                 </form>

@@ -4,6 +4,7 @@ export interface User {
   id: string;
   email: string;
   displayName: string;
+  photoURL?: string;
   role: UserRole;
   organizationId: string;
   lastLogin: Date | any;

@@ -17,6 +17,8 @@ interface AuthContextType {
     loading: boolean;
     signInWithGoogle: () => Promise<void>;
     logout: () => Promise<void>;
+    isAdmin: boolean;
+    getRedirectPath: () => string;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -24,6 +26,8 @@ const AuthContext = createContext<AuthContextType>({
     loading: true,
     signInWithGoogle: async () => { },
     logout: async () => { },
+    isAdmin: false,
+    getRedirectPath: () => "/dashboard",
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -81,9 +85,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             console.error("Error signing out", error);
         }
     };
+    const isAdmin = user?.role === "admin" || user?.role === "manager";
+    const getRedirectPath = () => isAdmin ? "/admin" : "/dashboard";
 
     return (
-        <AuthContext.Provider value={{ user, loading, signInWithGoogle, logout }}>
+        <AuthContext.Provider value={{ user, loading, signInWithGoogle, logout, isAdmin, getRedirectPath }}>
             {children}
         </AuthContext.Provider>
     );
