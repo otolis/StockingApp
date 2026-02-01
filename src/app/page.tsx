@@ -97,8 +97,8 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 w-full z-50 p-4 md:p-6 bg-black/80 backdrop-blur-md border-b-2 border-white">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 md:gap-3">
-            <Package className="text-[#FFB800] w-6 h-6 md:w-8 md:h-8" strokeWidth={3} />
-            <span className="text-xl md:text-2xl font-black uppercase tracking-tighter">Nexus Stock</span>
+            <img src="/images/logo.png" alt="Vault Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain filter invert" />
+            <span className="text-xl md:text-2xl font-black uppercase tracking-tighter">Vault</span>
           </div>
           <Link href="/login" className="px-4 py-2 md:px-6 md:py-2.5 border-2 border-white text-white text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition">
             Sign In
@@ -109,24 +109,25 @@ export default function LandingPage() {
       {/* Hero Section */}
       <main ref={heroRef} className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-32 relative">
         <div className="space-y-8 md:space-y-12">
-          <div className="hero-badge opacity-0 inline-flex items-center gap-3 px-4 py-1.5 border-2 border-[#FFB800] bg-[#FFB800]/10 text-[#FFB800] text-[10px] font-black uppercase tracking-[0.2em]">
+          <div className="hero-badge opacity-0 inline-flex items-center gap-3 px-4 py-1.5 border-2 border-[#A855F7] bg-[#A855F7]/10 text-[#A855F7] text-[10px] font-black uppercase tracking-[0.2em]">
             Now in Beta
           </div>
 
           <h1 className="hero-title text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9]">
             <span className="block opacity-0">Inventory</span>
             <span className="block opacity-0 text-stroke-2 text-transparent" style={{ WebkitTextStroke: '2px currentColor' } as any}>Management</span>
-            <span className="block opacity-0 text-[#FFB800]">Perfected.</span>
+            <span className="block opacity-0 text-[#A855F7]">Perfected.</span>
           </h1>
+          Broadway
 
           <p className="hero-description opacity-0 max-w-2xl text-base md:text-lg font-medium leading-relaxed opacity-70">
-            Nexus Stock provides real-time oversight of your inventory levels, smart alerts, and automated audit trails. Simple, powerful, and designed for modern teams.
+            Vault provides real-time oversight of your inventory levels, smart alerts, and automated audit trails. Simple, powerful, and designed for modern teams.
           </p>
 
           <div className="hero-buttons flex flex-col sm:flex-row items-center gap-4 md:gap-6">
             <Link
               href="/login"
-              className="opacity-0 w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 border-4 border-white bg-white text-black text-base md:text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(255,184,0,1)] md:shadow-[10px_10px_0px_rgba(255,184,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center gap-4 group"
+              className="opacity-0 w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 border-4 border-white bg-white text-black text-base md:text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(168,85,247,1)] md:shadow-[10px_10px_0px_rgba(168,85,247,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center gap-4 group"
             >
               Get Started
               <ArrowRight className="group-hover:translate-x-2 transition" />
@@ -153,8 +154,8 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="feature-card opacity-0 border-2 border-[#FFB800] p-6">
-            <div className="flex justify-between items-center mb-6 pb-4 border-b border-[#FFB800]/40 bg-[#FFB800] -mx-6 -mt-6 px-6 py-4 text-black font-bold">
+          <div className="feature-card opacity-0 border-2 border-[#A855F7] p-6">
+            <div className="flex justify-between items-center mb-6 pb-4 border-b border-[#A855F7]/40 bg-[#A855F7] -mx-6 -mt-6 px-6 py-4 text-black font-bold">
               <span className="text-[10px] uppercase">Feature 02</span>
               <Zap size={16} />
             </div>
@@ -181,11 +182,11 @@ export default function LandingPage() {
       <footer ref={footerRef} className="mt-20 md:mt-32 border-t-2 border-white py-12">
         <div className="footer-content max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
           <div className="opacity-0 flex items-center gap-3">
-            <Package size={24} className="text-[#FFB800]" />
-            <span className="font-black uppercase tracking-widest">Nexus Stock</span>
+            <Package size={24} className="text-[#A855F7]" />
+            <span className="font-black uppercase tracking-widest">Vault</span>
           </div>
           <div className="opacity-0 text-[10px] md:text-xs uppercase tracking-widest opacity-60">
-            © 2026 Nexus Stock. All rights reserved.
+            © 2026 Vault. All rights reserved.
           </div>
         </div>
       </footer>

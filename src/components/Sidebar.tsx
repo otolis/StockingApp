@@ -45,8 +45,8 @@ export default function Sidebar({ user, logout, isOpen, setIsOpen }: SidebarProp
             `}>
                 <div className="flex items-center justify-between mb-12">
                     <div className="flex items-center gap-2">
-                        <Package className="text-[#FFB800]" size={24} />
-                        <div className="font-extrabold text-xl tracking-tighter text-white">Nexus Stock</div>
+                        <img src="/images/logo.png" alt="Vault Logo" className="w-8 h-8 object-contain filter invert" />
+                        <div className="font-extrabold text-xl tracking-tighter text-white">Vault</div>
                     </div>
                     <button
                         onClick={() => setIsOpen(false)}
@@ -81,7 +81,7 @@ export default function Sidebar({ user, logout, isOpen, setIsOpen }: SidebarProp
 
                 <div className="pt-6 border-t-2 border-white">
                     <div className="flex items-center gap-3 mb-4">
-                        <div className={`h-10 w-10 border-2 flex items-center justify-center font-black overflow-hidden ${isAdmin ? 'border-[#FFB800]' : 'border-white'}`}>
+                        <div className={`h-10 w-10 border-2 flex items-center justify-center font-black overflow-hidden ${isAdmin ? 'border-[#A855F7]' : 'border-white'}`}>
                             {user?.photoURL ? (
                                 <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
@@ -90,7 +90,7 @@ export default function Sidebar({ user, logout, isOpen, setIsOpen }: SidebarProp
                         </div>
                         <div className="overflow-hidden">
                             <div className="font-bold text-sm truncate uppercase text-white">{user?.displayName}</div>
-                            <div className={`text-xs uppercase font-bold ${isAdmin ? 'text-[#FFB800]' : 'text-white/60'}`}>
+                            <div className={`text-xs uppercase font-bold ${isAdmin ? 'text-[#A855F7]' : 'text-white/60'}`}>
                                 {user?.role || "User"}
                             </div>
                         </div>

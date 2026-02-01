@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nexus Stock",
-  description: "Smart Inventory Management SaaS",
+  title: "Vault",
+  description: "Secure Tactical Inventory Management",
 };
 
 export default function RootLayout({

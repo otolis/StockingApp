@@ -70,7 +70,8 @@ export default function ItemModal({
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 font-mono">
             <div className="bg-[#F7F5F0] dark:bg-[#0A0A0A] w-full max-w-md border-4 border-black dark:border-white shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,1)] animate-in fade-in zoom-in duration-150">
-                <div className="flex items-center justify-between p-6 border-b-4 border-black dark:border-white bg-[#FFB800]">
+                <div className="flex items-center justify-between p-6 border-b-4 border-black dark:border-white bg-[#A855F7]">
+                    Broadway
                     <h2 className="text-xl font-black text-black uppercase tracking-tighter">
                         {initialData ? "Edit Item" : "New Item"}
                     </h2>

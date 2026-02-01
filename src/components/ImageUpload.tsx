@@ -107,8 +107,8 @@ export default function ImageUpload({ onUploadComplete, currentImageUrl, folder 
 
                     {uploading && (
                         <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center p-2 text-center">
-                            <Loader2 size={24} className="animate-spin text-[#FFB800] mb-2" />
-                            <div className="text-[10px] font-black text-[#FFB800] tracking-tighter">{progress}%</div>
+                            <Loader2 size={24} className="animate-spin text-[#A855F7] mb-2" />
+                            <div className="text-[10px] font-black text-[#A855F7] tracking-tighter">{progress}%</div>
                         </div>
                     )}
                 </div>

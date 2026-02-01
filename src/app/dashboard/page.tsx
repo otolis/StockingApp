@@ -95,12 +95,12 @@ export default function DashboardPage() {
             {/* Mobile Header */}
             <div className="lg:hidden fixed top-0 left-0 w-full bg-[#0A0A0A] border-b-2 border-white z-30 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Package className="text-[#FFB800]" size={20} />
-                    <div className="font-extrabold text-lg tracking-tighter">Nexus Stock</div>
+                    <img src="/images/logo.png" alt="Vault Logo" className="w-8 h-8 object-contain filter invert" />
+                    <div className="font-extrabold text-lg tracking-tighter text-white">Vault</div>
                 </div>
                 <button
                     onClick={() => setIsSidebarOpen(true)}
-                    className="p-2 border-2 border-white hover:bg-[#FFB800] hover:text-black transition"
+                    className="p-2 border-2 border-white hover:bg-[#A855F7] hover:text-black transition"
                 >
                     <Settings size={20} />
                 </button>
@@ -131,7 +131,7 @@ export default function DashboardPage() {
                                 <select
                                     value={selectedCategory}
                                     onChange={(e) => setSelectedCategory(e.target.value)}
-                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#FFB800] transition cursor-pointer"
+                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#A855F7] transition cursor-pointer"
                                 >
                                     {dynamicCategories.map(cat => (
                                         <option key={cat} value={cat}>{cat}</option>
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                                         const [key, direction] = e.target.value.split('-');
                                         setSortConfig({ key, direction: direction as 'asc' | 'desc' });
                                     }}
-                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#FFB800] transition cursor-pointer"
+                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#A855F7] transition cursor-pointer"
                                 >
                                     <option value="name-asc">Name (A-Z)</option>
                                     <option value="name-desc">Name (Z-A)</option>
@@ -199,8 +199,11 @@ export default function DashboardPage() {
                                 const threshold = Number(item.minThreshold) || 0;
                                 const isLowStock = qty < threshold;
                                 const statusText = qty === 0 ? 'No Stock' : isLowStock ? 'Low Stock' : 'In Stock';
-                                const statusColor = qty === 0 ? 'bg-red-600 text-white border-red-600' : isLowStock ? 'bg-amber-500/20 text-amber-500 border-amber-500' : 'bg-green-500/20 text-green-400 border-green-500';
-
+                                const statusColor = qty === 0
+                                    ? 'bg-[#FF4D4D]/10 text-[#FF4D4D] border-[#FF4D4D]/40'
+                                    : isLowStock
+                                        ? 'bg-[#A855F7]/10 text-[#A855F7] border-[#A855F7]/40'
+                                        : 'bg-[#00FFC2]/10 text-[#00FFC2] border-[#00FFC2]/40';
                                 return (
                                     <div key={item.id} className="border-2 border-white/20 p-4 bg-white/5 hover:border-white transition-colors overflow-hidden">
                                         <div className="flex flex-col min-[400px]:flex-row gap-4 mb-3">
@@ -219,9 +222,12 @@ export default function DashboardPage() {
                                                         <div className="font-black uppercase text-base truncate">{item.name}</div>
                                                         <div className="text-[10px] uppercase text-white/40 mb-1 leading-none">SKU: <span className="text-xs font-mono font-bold text-white/80">{item.sku}</span></div>
                                                     </div>
-                                                    <span className={`px-2 py-0.5 text-[10px] font-black uppercase border flex-shrink-0 whitespace-nowrap ${statusColor}`}>
+                                                    <div className={`px-2 py-0.5 text-[10px] font-black uppercase border flex-shrink-0 whitespace-nowrap inline-flex items-center gap-1 ${statusColor}`}>
+                                                        {(qty === 0 || isLowStock) && (
+                                                            <span className={`w-1 h-1 rounded-full animate-pulse ${qty === 0 ? 'bg-[#FF4D4D]' : 'bg-[#A855F7]'}`} />
+                                                        )}
                                                         {statusText}
-                                                    </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +238,7 @@ export default function DashboardPage() {
                                             </div>
                                             <div>
                                                 <div className="text-[10px] uppercase text-white/40 mb-1">Stock Level</div>
-                                                <div className={`text-xl font-black ${isLowStock ? 'text-red-500' : 'text-[#00FFC2]'}`}>
+                                                <div className={`text-xl font-black ${qty === 0 ? 'text-[#FF4D4D]' : isLowStock ? 'text-[#A855F7]' : 'text-[#00FFC2]'}`}>
                                                     {qty}
                                                 </div>
                                             </div>
@@ -282,7 +288,7 @@ export default function DashboardPage() {
                                             </td>
                                             <td className="px-6 py-4 opacity-60 font-mono">{item.sku}</td>
                                             <td className="px-6 py-4 text-center">
-                                                <span className={`text-lg font-black ${qty === 0 ? 'text-red-600' : isLowStock ? 'text-amber-500' : 'text-green-500'}`}>
+                                                <span className={`text-lg font-black ${qty === 0 ? 'text-[#FF4D4D]' : isLowStock ? 'text-[#A855F7]' : 'text-[#00FFC2]'}`}>
                                                     {qty}
                                                 </span>
                                             </td>
@@ -292,11 +298,14 @@ export default function DashboardPage() {
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className={`px-2 py-1 text-xs font-bold uppercase ${qty === 0 ? 'bg-red-600 text-white border border-red-600' :
-                                                    isLowStock ? 'bg-amber-500/20 text-amber-500 border border-amber-500' :
-                                                        'bg-green-500/20 text-green-400 border border-green-500'}`}>
+                                                <div className={`px-2 py-1 text-[10px] font-black uppercase border-2 shadow-[2px_2px_0px_rgba(0,0,0,0.2)] inline-flex items-center gap-1.5 ${qty === 0 ? 'bg-[#FF4D4D]/10 text-[#FF4D4D] border-[#FF4D4D]' :
+                                                    isLowStock ? 'bg-[#A855F7]/10 text-[#A855F7] border-[#A855F7]' :
+                                                        'bg-[#00FFC2]/10 text-[#00FFC2] border-[#00FFC2]'}`}>
+                                                    {(qty === 0 || isLowStock) && (
+                                                        <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${qty === 0 ? 'bg-[#FF4D4D]' : 'bg-[#A855F7]'}`} />
+                                                    )}
                                                     {qty === 0 ? 'No Stock' : isLowStock ? 'Low Stock' : 'In Stock'}
-                                                </span>
+                                                </div>
                                             </td>
                                         </tr>
                                     );
@@ -329,7 +338,7 @@ export default function DashboardPage() {
                                                 )}
                                                 <button
                                                     onClick={() => setCurrentPage(page)}
-                                                    className={`w-8 h-8 flex items-center justify-center text-[10px] font-black border ${currentPage === page ? 'bg-[#FFB800] text-black border-[#FFB800]' : 'border-white/20 hover:border-white'}`}
+                                                    className={`w-8 h-8 flex items-center justify-center text-[10px] font-black border ${currentPage === page ? 'bg-[#A855F7] text-black border-[#A855F7]' : 'border-white/20 hover:border-white'}`}
                                                 >
                                                     {page}
                                                 </button>

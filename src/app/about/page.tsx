@@ -114,10 +114,10 @@ export default function AboutPage() {
             <nav className="fixed top-0 left-0 w-full z-50 p-4 md:p-6 bg-black/80 backdrop-blur-md border-b-2 border-white">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition">
-                        <Package className="text-[#FFB800] w-6 h-6 md:w-8 md:h-8" strokeWidth={3} />
-                        <span className="text-xl md:text-2xl font-black uppercase tracking-tighter">Nexus Stock</span>
+                        <img src="/images/logo.png" alt="Vault Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain filter invert" />
+                        <span className="text-xl md:text-2xl font-black uppercase tracking-tighter">Vault</span>
                     </Link>
-                    <Link href="/" className="text-[10px] md:text-xs font-black uppercase tracking-widest hover:text-[#FFB800] transition flex items-center gap-2">
+                    <Link href="/" className="text-[10px] md:text-xs font-black uppercase tracking-widest hover:text-[#A855F7] transition flex items-center gap-2">
                         <ArrowLeft size={14} /> <span className="hidden sm:inline">Back to Home</span>
                     </Link>
                 </div>
@@ -135,12 +135,12 @@ export default function AboutPage() {
                     {/* Project Info */}
                     <section className="animate-section opacity-0 border-2 border-white p-6 md:p-8">
                         <h2 className="text-xl md:text-2xl font-black uppercase mb-6 flex items-center gap-3">
-                            <Package className="text-[#FFB800]" size={24} />
+                            <Package className="text-[#A855F7]" size={24} />
                             The Vision
                         </h2>
                         <div className="space-y-4 text-sm md:text-base leading-relaxed opacity-80 font-medium">
                             <p>
-                                Nexus Stock is a high-performance inventory management system built to handle the complexities of modern logistics with zero friction.
+                                Vault is a high-performance inventory management system built to handle the complexities of modern logistics with zero friction.
                             </p>
                             <p>
                                 We believe that speed and accuracy are the benchmarks of a successful supply chain. Our system is designed to provide absolute visibility into every asset, every move, and every alert.
@@ -149,14 +149,14 @@ export default function AboutPage() {
                     </section>
 
                     {/* Timeline */}
-                    <section className="animate-section opacity-0 border-2 border-[#FFB800] p-6 md:p-8">
-                        <h2 className="text-xl md:text-2xl font-black uppercase mb-6 flex items-center gap-3 text-[#FFB800]">
+                    <section className="animate-section opacity-0 border-2 border-[#A855F7] p-6 md:p-8">
+                        <h2 className="text-xl md:text-2xl font-black uppercase mb-6 flex items-center gap-3 text-[#A855F7]">
                             <Calendar size={24} />
                             Timeline
                         </h2>
                         <div className="space-y-6">
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 border-l-4 border-[#FFB800] pl-6 pb-2">
-                                <span className="bg-[#FFB800] text-black px-2 py-0.5 font-black text-xs uppercase">Feb 2026</span>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 border-l-4 border-[#A855F7] pl-6 pb-2">
+                                <span className="bg-[#A855F7] text-black px-2 py-0.5 font-black text-xs uppercase">Feb 2026</span>
                                 <span className="text-sm md:text-base font-bold uppercase tracking-tight">System Initialization & Core Engine</span>
                             </div>
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 border-l-4 border-white/20 pl-6 pb-2">
@@ -191,16 +191,16 @@ export default function AboutPage() {
                                 </ul>
                             </div>
                             <div className="space-y-6">
-                                <h3 className="font-black uppercase text-xs text-[#FFB800] tracking-widest">Neural Backend</h3>
+                                <h3 className="font-black uppercase text-xs text-[#A855F7] tracking-widest">Neural Backend</h3>
                                 <ul className="space-y-3">
                                     <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
-                                        <div className="w-2 h-2 bg-[#FFB800]" /> Firebase v12
+                                        <div className="w-2 h-2 bg-[#A855F7]" /> Firebase v12
                                     </li>
                                     <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
-                                        <div className="w-2 h-2 bg-[#FFB800]" /> Cloud Firestore (NoSQL)
+                                        <div className="w-2 h-2 bg-[#A855F7]" /> Cloud Firestore (NoSQL)
                                     </li>
                                     <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
-                                        <div className="w-2 h-2 bg-[#FFB800]" /> Google Auth v3
+                                        <div className="w-2 h-2 bg-[#A855F7]" /> Google Auth v3
                                     </li>
                                 </ul>
                             </div>
@@ -215,8 +215,8 @@ export default function AboutPage() {
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {['Real-Time Sync', 'Smart Alerts', 'Role Access', 'Encryption'].map((f) => (
-                                <div key={f} className="feature-item opacity-0 p-4 border border-white/20 hover:border-[#FFB800] transition group">
-                                    <h3 className="font-black uppercase text-xs md:text-sm group-hover:text-[#FFB800] transition">{f}</h3>
+                                <div key={f} className="feature-item opacity-0 p-4 border border-white/20 hover:border-[#A855F7] transition group">
+                                    <h3 className="font-black uppercase text-xs md:text-sm group-hover:text-[#A855F7] transition">{f}</h3>
                                 </div>
                             ))}
                         </div>
@@ -226,7 +226,7 @@ export default function AboutPage() {
                     <div className="cta-section text-center pt-8">
                         <Link
                             href="/login"
-                            className="cta-button opacity-0 inline-flex items-center gap-4 px-8 py-4 md:px-12 md:py-6 border-4 border-white bg-[#FFB800] text-black text-base md:text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:shadow-[10px_10px_0px_rgba(0,255,194,1)] hover:bg-[#00FFC2] hover:translate-x-1 hover:translate-y-1 transition-all"
+                            className="cta-button opacity-0 inline-flex items-center gap-4 px-8 py-4 md:px-12 md:py-6 border-4 border-white bg-[#A855F7] text-black text-base md:text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:shadow-[10px_10px_0px_rgba(0,255,194,1)] hover:bg-[#00FFC2] hover:translate-x-1 hover:translate-y-1 transition-all"
                         >
                             Open Dashboard
                         </Link>
@@ -238,11 +238,11 @@ export default function AboutPage() {
             <footer className="border-t-2 border-white/20 py-12">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
                     <div className="flex items-center gap-3">
-                        <Package size={24} className="text-[#FFB800]" />
-                        <span className="font-black uppercase tracking-widest">Nexus Stock</span>
+                        <Package size={24} className="text-[#A855F7]" />
+                        <span className="font-black uppercase tracking-widest">Vault</span>
                     </div>
                     <div className="text-[10px] uppercase tracking-widest opacity-40">
-                        © 2026 Nexus Stock. All protocols secured.
+                        © 2026 Vault. All protocols secured.
                     </div>
                 </div>
             </footer>

@@ -29,16 +29,16 @@ export default function LoginPage() {
             <div className="w-full max-w-sm mb-6">
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-2 px-4 py-2 border-2 border-white bg-black hover:bg-[#FFB800] hover:text-black transition uppercase font-black text-[10px] tracking-widest shadow-[4px_4px_0px_rgba(255,255,255,1)]"
+                    className="inline-flex items-center gap-2 px-4 py-2 border-2 border-white bg-black hover:bg-[#A855F7] hover:text-black transition uppercase font-black text-[10px] tracking-widest shadow-[4px_4px_0px_rgba(255,255,255,1)]"
                 >
                     <ArrowLeft size={14} strokeWidth={3} /> Back to Home
                 </Link>
             </div>
             <div className="tactileNode w-full max-w-sm !p-0 overflow-hidden shadow-[8px_8px_0px_rgba(255,255,255,1)] md:shadow-[12px_12px_0px_rgba(255,255,255,1)]">
-                <div className="p-6 md:p-8 border-b-4 border-white bg-[#FFB800] text-black">
+                <div className="p-6 md:p-8 border-b-4 border-white bg-[#A855F7] text-black">
                     <div className="flex items-center gap-3 mb-2">
-                        <Package size={28} className="md:w-8 md:h-8" strokeWidth={3} />
-                        <h1 className="text-3xl md:text-4xl font-black tracking-tighter uppercase leading-none">Nexus Stock</h1>
+                        <img src="/images/logo.png" alt="Vault Logo" className="w-10 h-10 object-contain" />
+                        <h1 className="text-3xl md:text-4xl font-black tracking-tighter uppercase leading-none">Vault</h1>
                     </div>
                     <div className="text-[10px] font-black tracking-[0.2em] opacity-80 uppercase">Inventory Management System</div>
                 </div>

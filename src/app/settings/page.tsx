@@ -77,12 +77,12 @@ export default function SettingsPage() {
             {/* Mobile Header */}
             <div className="lg:hidden fixed top-0 left-0 w-full bg-[#0A0A0A] border-b-2 border-white z-30 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Package className="text-[#FFB800]" size={20} />
-                    <div className="font-extrabold text-lg tracking-tighter">Nexus Stock</div>
+                    <img src="/images/logo.png" alt="Vault Logo" className="w-8 h-8 object-contain filter invert" />
+                    <div className="font-extrabold text-lg tracking-tighter text-white">Vault</div>
                 </div>
                 <button
                     onClick={() => setIsSidebarOpen(true)}
-                    className="p-2 border-2 border-white hover:bg-[#FFB800] hover:text-black transition"
+                    className="p-2 border-2 border-white hover:bg-[#A855F7] hover:text-black transition"
                 >
                     <GearIcon size={20} />
                 </button>
@@ -141,7 +141,7 @@ export default function SettingsPage() {
                             <label className="block text-xs font-bold uppercase text-white/60 mb-4">
                                 Role
                             </label>
-                            <div className="inline-block px-4 py-2 border-2 border-[#FFB800] bg-[#FFB800]/10 text-[#FFB800] font-bold text-sm uppercase">
+                            <div className="inline-block px-4 py-2 border-2 border-[#A855F7] bg-[#A855F7]/10 text-[#A855F7] font-bold text-sm uppercase">
                                 {user.role}
                             </div>
                         </div>
@@ -157,7 +157,7 @@ export default function SettingsPage() {
                         <button
                             onClick={handleSave}
                             disabled={saving}
-                            className="flex items-center gap-3 px-8 py-4 border-2 border-white bg-[#FFB800] text-black font-black uppercase text-sm shadow-[4px_4px_0px_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center gap-3 px-8 py-4 border-2 border-white bg-[#A855F7] text-black font-black uppercase text-sm shadow-[4px_4px_0px_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Save size={16} />
                             {saving ? "Saving..." : "Save Changes"}

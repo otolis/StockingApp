@@ -132,12 +132,12 @@ export default function AdminPage() {
             {/* Mobile Header */}
             <div className="lg:hidden fixed top-0 left-0 w-full bg-[#0A0A0A] border-b-2 border-white z-30 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Package className="text-[#FFB800]" size={20} />
-                    <div className="font-extrabold text-lg tracking-tighter text-white">Nexus Stock</div>
+                    <img src="/images/logo.png" alt="Vault Logo" className="w-8 h-8 object-contain filter invert" />
+                    <div className="font-extrabold text-lg tracking-tighter text-white">Vault</div>
                 </div>
                 <button
                     onClick={() => setIsSidebarOpen(true)}
-                    className="p-2 border-2 border-white hover:bg-[#FFB800] hover:text-black transition"
+                    className="p-2 border-2 border-white hover:bg-[#A855F7] hover:text-black transition"
                 >
                     <Settings size={20} />
                 </button>
@@ -168,7 +168,7 @@ export default function AdminPage() {
                                 <select
                                     value={selectedCategory}
                                     onChange={(e) => setSelectedCategory(e.target.value)}
-                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#FFB800] transition cursor-pointer"
+                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#A855F7] transition cursor-pointer"
                                 >
                                     {dynamicCategories.map(cat => (
                                         <option key={cat} value={cat}>{cat}</option>
@@ -180,7 +180,7 @@ export default function AdminPage() {
                                         const [key, direction] = e.target.value.split('-');
                                         setSortConfig({ key, direction: direction as 'asc' | 'desc' });
                                     }}
-                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#FFB800] transition cursor-pointer"
+                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#A855F7] transition cursor-pointer"
                                 >
                                     <option value="name-asc">Name (A-Z)</option>
                                     <option value="name-desc">Name (Z-A)</option>
@@ -191,9 +191,9 @@ export default function AdminPage() {
                             </div>
                             <button
                                 onClick={() => { setEditingItem(null); setIsModalOpen(true); }}
-                                className="flex items-center gap-2 px-4 py-2 border-2 border-white bg-[#FFB800] text-black font-black uppercase text-xs active:translate-y-1 transition shadow-[4px_4px_0px_rgba(255,255,255,1)]"
+                                className="group flex items-center gap-2 px-6 py-2.5 bg-[#A855F7] text-black font-black uppercase text-xs border-2 border-black transition-all shadow-[4px_4px_0px_#A855F7] hover:shadow-[2px_2px_0px_#A855F7] active:translate-x-0.5 active:translate-y-0.5"
                             >
-                                <Plus size={14} /> Add Item
+                                <Plus size={16} strokeWidth={3} /> Add Item
                             </button>
                         </div>
                     </div>
@@ -228,55 +228,78 @@ export default function AdminPage() {
                 {/* Low Stock Alerts */}
                 {lowStockItems.length > 0 && (
                     <div className="mb-8">
-                        <div className="border-2 border-amber-500">
+                        <div className="border-4 border-black dark:border-[#A855F7] overflow-hidden shadow-[8px_8px_0px_rgba(168,85,247,0.2)]">
                             <button
                                 onClick={() => {
                                     setIsAlertsExpanded(!isAlertsExpanded);
                                     animate('.alert-toggle', {
-                                        scale: [1, 0.95, 1],
+                                        scale: [1, 0.98, 1],
                                         duration: 200,
                                         easing: 'easeInOutQuad'
                                     });
                                 }}
-                                className="alert-toggle w-full flex justify-between items-center px-6 py-3 bg-amber-500 text-black hover:bg-amber-400 transition-colors"
+                                className="alert-toggle w-full flex justify-between items-center px-6 py-4 bg-[#A855F7] text-black hover:bg-[#C084FC] transition-all"
                             >
-                                <span className="flex items-center gap-2 font-black uppercase tracking-widest text-sm">
-                                    <AlertTriangle size={18} strokeWidth={3} /> Critical Attention
+                                <span className="flex items-center gap-3 font-black uppercase tracking-[0.1em] text-sm md:text-base">
+                                    <AlertTriangle size={22} strokeWidth={3} /> <span className="hidden sm:inline">Critical Items Requiring Attention</span><span className="sm:hidden">Critical Alerts</span>
                                 </span>
-                                <div className="flex items-center gap-4">
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-black text-amber-500 px-2 py-0.5">
-                                        {lowStockItems.length} alerts
-                                    </span>
-                                    {isAlertsExpanded ? <ChevronDown size={20} strokeWidth={3} /> : <ChevronRight size={20} strokeWidth={3} />}
+                                <div className="flex items-center gap-4 font-mono">
+                                    <div className="flex items-center gap-2 bg-black text-[#A855F7] px-3 py-1 text-xs font-black">
+                                        <span className="relative flex h-2 w-2">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A855F7] opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A855F7]"></span>
+                                        </span>
+                                        {lowStockItems.length} ACTIVE
+                                    </div>
+                                    {isAlertsExpanded ? <ChevronDown size={24} strokeWidth={3} /> : <ChevronRight size={24} strokeWidth={3} />}
                                 </div>
                             </button>
 
                             {isAlertsExpanded && (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 md:p-6 bg-amber-500/5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 md:p-6 bg-[#0A0A0A] border-t-2 border-white/10">
                                     {lowStockItems.map(item => (
-                                        <div key={item.id} className="alert-card p-4 border-2 border-amber-500/30 bg-black hover:border-amber-500 transition-colors cursor-pointer shadow-[4px_4px_0px_rgba(245,158,11,0.2)]"
+                                        <div key={item.id} className="alert-card p-5 border-2 border-white/10 bg-[#1A1A1A] hover:border-[#A855F7] transition-all group relative overflow-hidden"
                                             onClick={() => { setEditingItem(item); setIsModalOpen(true); }}>
-                                            <div className="flex gap-4 mb-3">
-                                                <div className="w-12 h-12 border border-amber-500/30 flex-shrink-0 bg-amber-500/5 overflow-hidden">
+                                            <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Edit2 size={12} className="text-[#A855F7]" />
+                                            </div>
+                                            <div className="flex gap-4 mb-4">
+                                                <div className="w-14 h-14 border-2 border-white/5 bg-black flex-shrink-0 overflow-hidden group-hover:border-[#A855F7]/30 transition-colors">
                                                     {item.imageUrl ? (
-                                                        <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                                                        <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                                                     ) : (
                                                         <div className="w-full h-full flex items-center justify-center">
-                                                            <Package size={20} className="text-amber-500/40" />
+                                                            <Package size={24} className="text-white/10 group-hover:text-[#A855F7]/30 transition-colors" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="font-black text-sm uppercase text-amber-500 leading-tight">{item.name}</div>
-                                            </div>
-                                            <div className="flex justify-between items-end">
-                                                <div className="text-[10px] opacity-40 uppercase">Stock Level</div>
-                                                <div className="text-red-500 font-black text-2xl leading-none">
-                                                    {Number(item.quantity)}
+                                                <div className="flex flex-col justify-center">
+                                                    <div className="font-black text-sm uppercase leading-tight text-white/90 group-hover:text-white transition-colors">{item.name}</div>
+                                                    <div className="text-[9px] text-[#A855F7] font-black tracking-widest uppercase mt-1">L-Stock Alert</div>
                                                 </div>
                                             </div>
-                                            <div className="mt-3 pt-3 border-t border-white/10 flex justify-between items-center">
-                                                <span className="text-[10px] opacity-40 font-mono italic">{item.sku}</span>
-                                                <span className="text-[10px] font-black uppercase tracking-widest text-amber-500/60">Configure</span>
+
+                                            <div className="flex justify-between items-end bg-black/40 p-3 border border-white/5">
+                                                <div className="flex flex-col">
+                                                    <div className="text-[9px] text-white/40 uppercase font-bold tracking-tighter">Current Count</div>
+                                                    <div className="text-2xl font-black text-[#FF4D4D] tabular-nums font-mono leading-none mt-1">
+                                                        {Number(item.quantity).toString().padStart(2, '0')}
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col items-end">
+                                                    <div className="text-[9px] text-white/40 uppercase font-bold tracking-tighter">Threshold</div>
+                                                    <div className="text-xs font-bold text-white/60 mt-1">{item.minThreshold || 0} units</div>
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-4 flex items-center justify-between">
+                                                <span className="text-[10px] text-white/20 font-mono tracking-tighter truncate max-w-[100px]">{item.sku}</span>
+                                                <div className="h-1 w-12 bg-white/5 rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-[#A855F7] transition-all duration-1000"
+                                                        style={{ width: `${Math.min(100, (Number(item.quantity) / (item.minThreshold || 1)) * 100)}%` }}
+                                                    ></div>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
@@ -303,7 +326,11 @@ export default function AdminPage() {
                                 const threshold = Number(item.minThreshold) || 0;
                                 const isLowStock = qty < threshold;
                                 const statusText = qty === 0 ? 'No Stock' : isLowStock ? 'Low Stock' : 'In Stock';
-                                const statusColor = qty === 0 ? 'bg-red-600 text-white border-red-600' : isLowStock ? 'bg-amber-500/20 text-amber-400 border-amber-500' : 'bg-green-500/20 text-green-400 border-green-500';
+                                const statusColor = qty === 0
+                                    ? 'bg-[#FF4D4D]/10 text-[#FF4D4D] border-[#FF4D4D]/40'
+                                    : isLowStock
+                                        ? 'bg-[#A855F7]/10 text-[#A855F7] border-[#A855F7]/40'
+                                        : 'bg-[#00FFC2]/10 text-[#00FFC2] border-[#00FFC2]/40';
 
                                 return (
                                     <div key={item.id} className="border-2 border-white/20 p-5 bg-white/5 hover:border-white transition-all shadow-[6px_6px_0px_rgba(255,255,255,0.05)] overflow-hidden">
@@ -323,9 +350,12 @@ export default function AdminPage() {
                                                         <div className="font-black uppercase text-base leading-tight truncate">{item.name}</div>
                                                         <div className="text-[10px] font-mono opacity-40 italic mt-1">{item.sku}</div>
                                                     </div>
-                                                    <span className={`px-2 py-0.5 text-[9px] font-black uppercase border flex-shrink-0 whitespace-nowrap ${statusColor}`}>
+                                                    <div className={`px-2 py-0.5 text-[10px] font-black uppercase border flex-shrink-0 whitespace-nowrap inline-flex items-center gap-1 ${statusColor}`}>
+                                                        {(qty === 0 || isLowStock) && (
+                                                            <span className={`w-1 h-1 rounded-full animate-pulse ${qty === 0 ? 'bg-[#FF4D4D]' : 'bg-[#A855F7]'}`} />
+                                                        )}
                                                         {statusText}
-                                                    </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -333,7 +363,7 @@ export default function AdminPage() {
                                         <div className="grid grid-cols-2 gap-6 mb-6">
                                             <div>
                                                 <div className="text-[10px] uppercase text-white/30 mb-1 tracking-widest">Quantity</div>
-                                                <div className={`text-2xl font-black ${isLowStock ? 'text-red-500' : 'text-[#00FFC2]'}`}>
+                                                <div className={`text-2xl font-black ${qty === 0 ? 'text-[#FF4D4D]' : isLowStock ? 'text-[#A855F7]' : 'text-[#00FFC2]'}`}>
                                                     {qty}
                                                 </div>
                                             </div>
@@ -346,7 +376,7 @@ export default function AdminPage() {
                                         <div className="flex gap-2 pt-4 border-t border-white/10">
                                             <button
                                                 onClick={() => { setEditingItem(item); setIsModalOpen(true); }}
-                                                className="flex-1 flex items-center justify-center gap-2 py-2 border-2 border-white bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[#FFB800] hover:border-[#FFB800] transition-colors"
+                                                className="flex-1 flex items-center justify-center gap-2 py-2 border-2 border-white bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[#A855F7] hover:border-[#A855F7] transition-colors"
                                             >
                                                 <Edit2 size={12} /> Edit
                                             </button>
@@ -399,7 +429,7 @@ export default function AdminPage() {
                                             </td>
                                             <td className="px-6 py-4 opacity-60 font-mono">{item.sku}</td>
                                             <td className="px-6 py-4 text-center">
-                                                <span className={`text-lg font-black ${isLowStock ? 'text-red-500' : 'text-green-500'}`}>
+                                                <span className={`text-lg font-black ${qty === 0 ? 'text-[#FF4D4D]' : isLowStock ? 'text-[#A855F7]' : 'text-[#00FFC2]'}`}>
                                                     {qty}
                                                 </span>
                                             </td>
@@ -409,11 +439,14 @@ export default function AdminPage() {
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className={`px-2 py-1 text-xs font-bold uppercase ${qty === 0 ? 'bg-red-600 text-white border border-red-600' :
-                                                    isLowStock ? 'bg-amber-500/20 text-amber-500 border border-amber-500' :
-                                                        'bg-green-500/20 text-green-400 border border-green-500'}`}>
+                                                <div className={`px-2 py-1 text-[10px] font-black uppercase border-2 shadow-[2px_2px_0px_rgba(0,0,0,0.2)] inline-flex items-center gap-1.5 ${qty === 0 ? 'bg-[#FF4D4D]/10 text-[#FF4D4D] border-[#FF4D4D]' :
+                                                    isLowStock ? 'bg-[#A855F7]/10 text-[#A855F7] border-[#A855F7]' :
+                                                        'bg-[#00FFC2]/10 text-[#00FFC2] border-[#00FFC2]'}`}>
+                                                    {(qty === 0 || isLowStock) && (
+                                                        <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${qty === 0 ? 'bg-[#FF4D4D]' : 'bg-[#A855F7]'}`} />
+                                                    )}
                                                     {qty === 0 ? 'No Stock' : isLowStock ? 'Low Stock' : 'In Stock'}
-                                                </span>
+                                                </div>
                                             </td>
                                             <td className="px-6 py-4 text-right">
                                                 <div className="flex justify-end gap-2">
@@ -462,7 +495,7 @@ export default function AdminPage() {
                                                 )}
                                                 <button
                                                     onClick={() => setCurrentPage(page)}
-                                                    className={`w-8 h-8 flex items-center justify-center text-[10px] font-black border ${currentPage === page ? 'bg-[#FFB800] text-black border-[#FFB800]' : 'border-white/20 hover:border-white'}`}
+                                                    className={`w-8 h-8 flex items-center justify-center text-[10px] font-black border ${currentPage === page ? 'bg-[#A855F7] text-black border-[#A855F7]' : 'border-white/20 hover:border-white'}`}
                                                 >
                                                     {page}
                                                 </button>
