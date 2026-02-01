@@ -27,14 +27,44 @@ export default function AdminPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
     const [isAlertsExpanded, setIsAlertsExpanded] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' }>({ key: 'name', direction: 'asc' });
+    const itemsPerPage = 10;
 
-    const categories = ["Electronics", "Furniture", "Office Supplies", "Perishables", "Other"];
+    const dynamicCategories = ["All", ...Array.from(new Set(items.map(item => item.category || "Other"))).filter(Boolean)];
 
     const lowStockItems = items.filter(item => Number(item.quantity) < Number(item.minThreshold));
-    const filteredItems = items.filter(item =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.sku.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const filteredItems = items
+        .filter(item => {
+            const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.sku.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
+            return matchesSearch && matchesCategory;
+        })
+        .sort((a, b) => {
+            let aValue: any = a[sortConfig.key as keyof InventoryItem] ?? "";
+            let bValue: any = b[sortConfig.key as keyof InventoryItem] ?? "";
+
+            if (typeof aValue === 'string') aValue = aValue.toLowerCase();
+            if (typeof bValue === 'string') bValue = bValue.toLowerCase();
+
+            if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+            if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+            return 0;
+        });
+
+    const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+    const paginatedItems = filteredItems.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
     );
+
+    // Reset to first page on search or filter
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, selectedCategory]);
 
     // Redirect non-admins to dashboard, unauthenticated to login
     useEffect(() => {
@@ -134,6 +164,31 @@ export default function AdminPage() {
                                     className="w-full pl-10 pr-4 py-2 border-2 border-white bg-transparent outline-none focus:bg-black transition font-bold text-xs"
                                 />
                             </div>
+                            <div className="hidden md:flex items-center gap-2">
+                                <select
+                                    value={selectedCategory}
+                                    onChange={(e) => setSelectedCategory(e.target.value)}
+                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#FFB800] transition cursor-pointer"
+                                >
+                                    {dynamicCategories.map(cat => (
+                                        <option key={cat} value={cat}>{cat}</option>
+                                    ))}
+                                </select>
+                                <select
+                                    value={`${sortConfig.key}-${sortConfig.direction}`}
+                                    onChange={(e) => {
+                                        const [key, direction] = e.target.value.split('-');
+                                        setSortConfig({ key, direction: direction as 'asc' | 'desc' });
+                                    }}
+                                    className="bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none focus:border-[#FFB800] transition cursor-pointer"
+                                >
+                                    <option value="name-asc">Name (A-Z)</option>
+                                    <option value="name-desc">Name (Z-A)</option>
+                                    <option value="quantity-asc">Qty (Low-High)</option>
+                                    <option value="quantity-desc">Qty (High-Low)</option>
+                                    <option value="category-asc">Category</option>
+                                </select>
+                            </div>
                             <button
                                 onClick={() => { setEditingItem(null); setIsModalOpen(true); }}
                                 className="flex items-center gap-2 px-4 py-2 border-2 border-white bg-[#FFB800] text-black font-black uppercase text-xs active:translate-y-1 transition shadow-[4px_4px_0px_rgba(255,255,255,1)]"
@@ -141,6 +196,32 @@ export default function AdminPage() {
                                 <Plus size={14} /> Add Item
                             </button>
                         </div>
+                    </div>
+
+                    {/* Mobile Filters */}
+                    <div className="md:hidden mt-4 flex flex-col gap-3">
+                        <select
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                            className="w-full bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none"
+                        >
+                            {dynamicCategories.map(cat => (
+                                <option key={cat} value={cat}>{cat}</option>
+                            ))}
+                        </select>
+                        <select
+                            value={`${sortConfig.key}-${sortConfig.direction}`}
+                            onChange={(e) => {
+                                const [key, direction] = e.target.value.split('-');
+                                setSortConfig({ key, direction: direction as 'asc' | 'desc' });
+                            }}
+                            className="w-full bg-black border-2 border-white px-3 py-2 text-[10px] font-black uppercase outline-none"
+                        >
+                            <option value="name-asc">Sort: Name (A-Z)</option>
+                            <option value="name-desc">Sort: Name (Z-A)</option>
+                            <option value="quantity-asc">Sort: Qty (Low-High)</option>
+                            <option value="quantity-desc">Sort: Qty (High-Low)</option>
+                        </select>
                     </div>
                 </div>
 
@@ -214,10 +295,10 @@ export default function AdminPage() {
 
                     {/* Mobile Card Layout (Hidden on LG+) */}
                     <div className="lg:hidden p-4 space-y-4">
-                        {filteredItems.length === 0 ? (
+                        {paginatedItems.length === 0 ? (
                             <div className="text-center py-10 opacity-40 text-xs text-white uppercase tracking-widest">No matching assets</div>
                         ) : (
-                            filteredItems.map(item => {
+                            paginatedItems.map(item => {
                                 const qty = Number(item.quantity) || 0;
                                 const threshold = Number(item.minThreshold) || 0;
                                 const isLowStock = qty < threshold;
@@ -296,7 +377,7 @@ export default function AdminPage() {
                                 </tr>
                             </thead>
                             <tbody className="text-sm">
-                                {filteredItems.map(item => {
+                                {paginatedItems.map(item => {
                                     const qty = Number(item.quantity) || 0;
                                     const threshold = Number(item.minThreshold) || 0;
                                     const isLowStock = qty < threshold;
@@ -356,12 +437,55 @@ export default function AdminPage() {
                             </tbody>
                         </table>
                     </div>
+
+                    {/* Pagination Controls */}
+                    {totalPages > 1 && (
+                        <div className="px-6 py-4 border-t-2 border-white flex flex-col md:flex-row justify-between items-center gap-4 bg-white/5">
+                            <div className="text-[10px] uppercase font-black tracking-widest opacity-40">
+                                Page {currentPage} of {totalPages}
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                    disabled={currentPage === 1}
+                                    className="px-3 py-1 border border-white text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-white"
+                                >
+                                    Prev
+                                </button>
+                                <div className="flex gap-1">
+                                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                                        .filter(page => page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1)
+                                        .map((page, index, array) => (
+                                            <div key={page} className="flex items-center">
+                                                {index > 0 && array[index - 1] !== page - 1 && (
+                                                    <span className="px-1 opacity-40">...</span>
+                                                )}
+                                                <button
+                                                    onClick={() => setCurrentPage(page)}
+                                                    className={`w-8 h-8 flex items-center justify-center text-[10px] font-black border ${currentPage === page ? 'bg-[#FFB800] text-black border-[#FFB800]' : 'border-white/20 hover:border-white'}`}
+                                                >
+                                                    {page}
+                                                </button>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                                <button
+                                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                    disabled={currentPage === totalPages}
+                                    className="px-3 py-1 border border-white text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-white"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </main>
 
             <ItemModal
                 isOpen={isModalOpen}
-                categories={categories}
+                categories={CATEGORIES_FOR_MODAL}
                 initialData={editingItem}
                 onClose={() => { setIsModalOpen(false); setEditingItem(null); }}
                 onSubmit={handleCreateOrUpdate}
@@ -369,3 +493,5 @@ export default function AdminPage() {
         </div>
     );
 }
+
+const CATEGORIES_FOR_MODAL = ["Electronics", "Furniture", "Office Supplies", "Perishables", "Other"];
