@@ -120,7 +120,7 @@ export default function AdminPage() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white font-mono">
+        <div className="min-h-screen bg-black text-white font-mono overflow-x-hidden">
             {/* Sidebar */}
             <Sidebar
                 user={user}
@@ -306,8 +306,8 @@ export default function AdminPage() {
                                 const statusColor = qty === 0 ? 'bg-red-600 text-white border-red-600' : isLowStock ? 'bg-amber-500/20 text-amber-400 border-amber-500' : 'bg-green-500/20 text-green-400 border-green-500';
 
                                 return (
-                                    <div key={item.id} className="border-2 border-white/20 p-5 bg-white/5 hover:border-white transition-all shadow-[6px_6px_0px_rgba(255,255,255,0.05)]">
-                                        <div className="flex gap-4 mb-4">
+                                    <div key={item.id} className="border-2 border-white/20 p-5 bg-white/5 hover:border-white transition-all shadow-[6px_6px_0px_rgba(255,255,255,0.05)] overflow-hidden">
+                                        <div className="flex flex-col min-[400px]:flex-row gap-4 mb-4">
                                             <div className="w-16 h-16 border-2 border-white/10 flex-shrink-0 overflow-hidden bg-white/5">
                                                 {item.imageUrl ? (
                                                     <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
@@ -318,12 +318,12 @@ export default function AdminPage() {
                                                 )}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="flex justify-between items-start">
-                                                    <div>
+                                                <div className="flex flex-col min-[450px]:flex-row justify-between items-start gap-2">
+                                                    <div className="min-w-0 flex-1">
                                                         <div className="font-black uppercase text-base leading-tight truncate">{item.name}</div>
                                                         <div className="text-[10px] font-mono opacity-40 italic mt-1">{item.sku}</div>
                                                     </div>
-                                                    <span className={`px-2 py-0.5 text-[9px] font-black uppercase border flex-shrink-0 ${statusColor}`}>
+                                                    <span className={`px-2 py-0.5 text-[9px] font-black uppercase border flex-shrink-0 whitespace-nowrap ${statusColor}`}>
                                                         {statusText}
                                                     </span>
                                                 </div>
