@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { InventoryItem } from "@/types";
-import { LayoutDashboard, Package, Search, Settings } from "lucide-react";
+import { LayoutDashboard, Package, Search, Settings, Menu } from "lucide-react";
+import Sidebar from "@/components/Sidebar";
 
 export default function DashboardPage() {
     const { user, loading, logout, isAdmin } = useAuth();
@@ -14,6 +15,7 @@ export default function DashboardPage() {
 
     const [items, setItems] = useState<InventoryItem[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     // Redirect admins to admin page, unauthenticated to login
     useEffect(() => {
@@ -65,47 +67,29 @@ export default function DashboardPage() {
     return (
         <div className="min-h-screen bg-black text-white font-mono">
             {/* Sidebar */}
-            <aside className="fixed left-0 top-0 h-full w-64 border-r-2 border-white bg-[#0A0A0A] z-40 p-6 flex flex-col">
-                <div className="flex items-center gap-2 mb-12">
-                    <Package className="text-[#FFB800]" size={24} />
-                    <div className="font-extrabold text-xl tracking-tighter">Nexus Stock</div>
-                </div>
+            <Sidebar
+                user={user}
+                logout={logout}
+                isOpen={isSidebarOpen}
+                setIsOpen={setIsSidebarOpen}
+            />
 
-                <nav className="flex-1 space-y-4">
-                    <div className="text-xs uppercase text-white/60 mb-2">Navigation</div>
-                    <button className="flex items-center gap-3 w-full p-2 border-2 border-white bg-white text-black font-bold text-xs uppercase transition">
-                        <LayoutDashboard size={14} /> Inventory
-                    </button>
-                    <a href="/settings" className="flex items-center gap-3 w-full p-2 border-2 border-white/30 text-white/60 font-bold text-xs uppercase transition hover:border-white hover:text-white">
-                        <Settings size={14} /> Settings
-                    </a>
-                </nav>
-
-                <div className="pt-6 border-t-2 border-white">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="h-10 w-10 border-2 border-white flex items-center justify-center font-black overflow-hidden">
-                            {user.photoURL ? (
-                                <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
-                            ) : (
-                                user.displayName?.[0] || "U"
-                            )}
-                        </div>
-                        <div className="overflow-hidden">
-                            <div className="font-bold text-sm truncate uppercase">{user.displayName}</div>
-                            <div className="text-xs text-white/60 uppercase">Viewer</div>
-                        </div>
-                    </div>
-                    <button
-                        onClick={logout}
-                        className="w-full p-2 border-2 border-red-500 text-red-500 font-bold text-xs uppercase hover:bg-red-500 hover:text-white transition"
-                    >
-                        Sign Out
-                    </button>
+            {/* Mobile Header */}
+            <div className="lg:hidden fixed top-0 left-0 w-full bg-[#0A0A0A] border-b-2 border-white z-30 p-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                    <Package className="text-[#FFB800]" size={20} />
+                    <div className="font-extrabold text-lg tracking-tighter">Nexus Stock</div>
                 </div>
-            </aside>
+                <button
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="p-2 border-2 border-white hover:bg-[#FFB800] hover:text-black transition"
+                >
+                    <Settings size={20} />
+                </button>
+            </div>
 
             {/* Main Content */}
-            <main className="ml-64 p-8">
+            <main className="lg:ml-64 p-4 md:p-8 pt-24 lg:pt-8">
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">

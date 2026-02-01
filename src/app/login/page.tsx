@@ -24,17 +24,17 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="mainGridCanvas flex h-screen items-center justify-center font-mono">
-            <div className="tactileNode w-full max-w-sm !p-0 overflow-hidden shadow-[12px_12px_0px_rgba(255,255,255,1)]">
-                <div className="p-8 border-b-4 border-white bg-[#FFB800] text-black">
+        <div className="mainGridCanvas flex min-h-screen items-center justify-center p-6 font-mono">
+            <div className="tactileNode w-full max-w-sm !p-0 overflow-hidden shadow-[8px_8px_0px_rgba(255,255,255,1)] md:shadow-[12px_12px_0px_rgba(255,255,255,1)]">
+                <div className="p-6 md:p-8 border-b-4 border-white bg-[#FFB800] text-black">
                     <div className="flex items-center gap-3 mb-2">
-                        <Package size={32} strokeWidth={3} />
-                        <h1 className="text-4xl font-black tracking-tighter uppercase">Nexus Stock</h1>
+                        <Package size={28} className="md:w-8 md:h-8" strokeWidth={3} />
+                        <h1 className="text-3xl md:text-4xl font-black tracking-tighter uppercase leading-none">Nexus Stock</h1>
                     </div>
                     <div className="text-[10px] font-black tracking-[0.2em] opacity-80 uppercase">Inventory Management System</div>
                 </div>
 
-                <div className="p-10 space-y-8 bg-[#0A0A0A]">
+                <div className="p-8 md:p-10 space-y-8 bg-[#0A0A0A]">
                     <div className="technicalLabel">Sign in to continue</div>
                     <button
                         onClick={signInWithGoogle}

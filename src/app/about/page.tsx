@@ -109,145 +109,116 @@ export default function AboutPage() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-black text-white font-mono overflow-x-hidden">
+        <div className="min-h-screen bg-black text-white font-mono overflow-x-hidden pt-20">
             {/* Navigation */}
-            <nav className="fixed top-0 left-0 w-full z-50 p-6 bg-black/80 backdrop-blur-md border-b-2 border-white">
+            <nav className="fixed top-0 left-0 w-full z-50 p-4 md:p-6 bg-black/80 backdrop-blur-md border-b-2 border-white">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition">
-                        <Package className="text-[#FFB800]" size={32} strokeWidth={3} />
-                        <span className="text-2xl font-black uppercase tracking-tighter">Nexus Stock</span>
+                    <Link href="/" className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition">
+                        <Package className="text-[#FFB800] w-6 h-6 md:w-8 md:h-8" strokeWidth={3} />
+                        <span className="text-xl md:text-2xl font-black uppercase tracking-tighter">Nexus Stock</span>
                     </Link>
-                    <div className="flex items-center gap-8">
-                        <Link href="/" className="text-xs font-black uppercase tracking-widest hover:text-[#FFB800] transition flex items-center gap-2">
-                            <ArrowLeft size={14} /> Back to Home
-                        </Link>
-                    </div>
+                    <Link href="/" className="text-[10px] md:text-xs font-black uppercase tracking-widest hover:text-[#FFB800] transition flex items-center gap-2">
+                        <ArrowLeft size={14} /> <span className="hidden sm:inline">Back to Home</span>
+                    </Link>
                 </div>
             </nav>
 
             {/* Main Content */}
-            <main ref={sectionsRef} className="max-w-4xl mx-auto px-8 pt-40 pb-32">
-                <div className="space-y-16">
+            <main ref={sectionsRef} className="max-w-4xl mx-auto px-6 md:px-8 py-20 md:py-32">
+                <div className="space-y-12 md:space-y-20">
                     {/* Header */}
-                    <div className="about-header">
-                        <h1 className="opacity-0 text-5xl md:text-6xl font-black uppercase tracking-tighter mb-4">About</h1>
-                        <p className="opacity-0 text-lg opacity-70">Learn more about Nexus Stock and the technology behind it.</p>
+                    <div className="about-header text-center md:text-left">
+                        <h1 className="opacity-0 text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4">About</h1>
+                        <p className="opacity-0 text-base md:text-lg opacity-70">The precision-engineered operating system for your stock.</p>
                     </div>
 
                     {/* Project Info */}
-                    <section className="animate-section opacity-0 border-2 border-white p-8">
-                        <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
+                    <section className="animate-section opacity-0 border-2 border-white p-6 md:p-8">
+                        <h2 className="text-xl md:text-2xl font-black uppercase mb-6 flex items-center gap-3">
                             <Package className="text-[#FFB800]" size={24} />
-                            The Project
+                            The Vision
                         </h2>
-                        <p className="text-sm leading-relaxed opacity-80 mb-4">
-                            Nexus Stock is a modern inventory management system designed for small to medium-sized businesses.
-                            It provides real-time stock tracking, smart low-stock alerts, and role-based access control to
-                            streamline your inventory operations.
-                        </p>
-                        <p className="text-sm leading-relaxed opacity-80">
-                            Built with a focus on simplicity and user experience, Nexus Stock helps teams stay organized
-                            and never miss a restocking opportunity.
-                        </p>
+                        <div className="space-y-4 text-sm md:text-base leading-relaxed opacity-80 font-medium">
+                            <p>
+                                Nexus Stock is a high-performance inventory management system built to handle the complexities of modern logistics with zero friction.
+                            </p>
+                            <p>
+                                We believe that speed and accuracy are the benchmarks of a successful supply chain. Our system is designed to provide absolute visibility into every asset, every move, and every alert.
+                            </p>
+                        </div>
                     </section>
 
                     {/* Timeline */}
-                    <section className="animate-section opacity-0 border-2 border-[#FFB800] p-8">
-                        <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
-                            <Calendar className="text-[#FFB800]" size={24} />
-                            Project Timeline
+                    <section className="animate-section opacity-0 border-2 border-[#FFB800] p-6 md:p-8">
+                        <h2 className="text-xl md:text-2xl font-black uppercase mb-6 flex items-center gap-3 text-[#FFB800]">
+                            <Calendar size={24} />
+                            Timeline
                         </h2>
-                        <div className="space-y-4">
-                            <div className="flex items-start gap-4">
-                                <span className="text-[#FFB800] font-bold text-sm whitespace-nowrap">Feb 2026</span>
-                                <span className="text-sm opacity-80">Project initiated and core features developed</span>
+                        <div className="space-y-6">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 border-l-4 border-[#FFB800] pl-6 pb-2">
+                                <span className="bg-[#FFB800] text-black px-2 py-0.5 font-black text-xs uppercase">Feb 2026</span>
+                                <span className="text-sm md:text-base font-bold uppercase tracking-tight">System Initialization & Core Engine</span>
                             </div>
-                            <div className="flex items-start gap-4">
-                                <span className="text-[#FFB800] font-bold text-sm whitespace-nowrap">Feb 2026</span>
-                                <span className="text-sm opacity-80">Beta release with Firebase integration</span>
-                            </div>
-                            <div className="flex items-start gap-4">
-                                <span className="text-[#FFB800] font-bold text-sm whitespace-nowrap">Current</span>
-                                <span className="text-sm opacity-80">Continuous improvements and feature additions</span>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 border-l-4 border-white/20 pl-6 pb-2">
+                                <span className="border-2 border-white px-2 py-0.5 font-black text-xs uppercase">Current</span>
+                                <span className="text-sm md:text-base opacity-60 font-bold uppercase tracking-tight">Beta Deployment & Optimization</span>
                             </div>
                         </div>
                     </section>
 
                     {/* Tech Stack */}
-                    <section className="tech-section animate-section opacity-0 border-2 border-[#00FFC2] p-8">
-                        <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
-                            <Code className="text-[#00FFC2]" size={24} />
-                            Technology Stack
+                    <section className="tech-section animate-section opacity-0 border-2 border-[#00FFC2] p-6 md:p-8">
+                        <h2 className="text-xl md:text-2xl font-black uppercase mb-8 flex items-center gap-3 text-[#00FFC2]">
+                            <Code size={24} />
+                            High-Tech Stack
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-4">
-                                <h3 className="font-bold uppercase text-sm text-white/60">Frontend</h3>
-                                <ul className="space-y-2">
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#00FFC2]"></span>
-                                        Next.js 14 (React Framework)
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                            <div className="space-y-6">
+                                <h3 className="font-black uppercase text-xs text-[#00FFC2] tracking-widest">Core Interface</h3>
+                                <ul className="space-y-3">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
+                                        <div className="w-2 h-2 bg-[#00FFC2]" /> Next.js 16 (App Router)
                                     </li>
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#00FFC2]"></span>
-                                        TypeScript
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
+                                        <div className="w-2 h-2 bg-[#00FFC2]" /> React 19 / TypeScript 5
                                     </li>
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#00FFC2]"></span>
-                                        Tailwind CSS
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
+                                        <div className="w-2 h-2 bg-[#00FFC2]" /> Tailwind CSS v4
                                     </li>
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#00FFC2]"></span>
-                                        Lucide React (Icons)
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
+                                        <div className="w-2 h-2 bg-[#00FFC2]" /> Anime.js v4
                                     </li>
                                 </ul>
                             </div>
-                            <div className="space-y-4">
-                                <h3 className="font-bold uppercase text-sm text-white/60">Backend & Services</h3>
-                                <ul className="space-y-2">
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#FFB800]"></span>
-                                        Firebase Authentication
+                            <div className="space-y-6">
+                                <h3 className="font-black uppercase text-xs text-[#FFB800] tracking-widest">Neural Backend</h3>
+                                <ul className="space-y-3">
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
+                                        <div className="w-2 h-2 bg-[#FFB800]" /> Firebase v12
                                     </li>
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#FFB800]"></span>
-                                        Cloud Firestore (Database)
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
+                                        <div className="w-2 h-2 bg-[#FFB800]" /> Cloud Firestore (NoSQL)
                                     </li>
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#FFB800]"></span>
-                                        Firebase Analytics
-                                    </li>
-                                    <li className="tech-item opacity-0 flex items-center gap-3 text-sm">
-                                        <span className="w-2 h-2 bg-[#FFB800]"></span>
-                                        Google Cloud Platform
+                                    <li className="tech-item opacity-0 flex items-center gap-3 text-xs md:text-sm font-bold uppercase">
+                                        <div className="w-2 h-2 bg-[#FFB800]" /> Google Auth v3
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </section>
 
-                    {/* Features */}
-                    <section className="feature-section animate-section opacity-0 border-2 border-white p-8">
-                        <h2 className="text-2xl font-black uppercase mb-6 flex items-center gap-3">
-                            <Shield size={24} />
-                            Key Features
+                    {/* Features Grid */}
+                    <section className="feature-section animate-section opacity-0 border-2 border-white p-6 md:p-8">
+                        <h2 className="text-xl md:text-2xl font-black uppercase mb-8 flex items-center gap-3">
+                            <Shield size={24} strokeWidth={3} />
+                            Key Protocols
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
-                                <h3 className="font-bold uppercase text-sm mb-2">Real-Time Sync</h3>
-                                <p className="text-xs opacity-60">Instant updates across all connected devices</p>
-                            </div>
-                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
-                                <h3 className="font-bold uppercase text-sm mb-2">Smart Alerts</h3>
-                                <p className="text-xs opacity-60">Automated low-stock notifications</p>
-                            </div>
-                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
-                                <h3 className="font-bold uppercase text-sm mb-2">Role-Based Access</h3>
-                                <p className="text-xs opacity-60">Admin and viewer permission levels</p>
-                            </div>
-                            <div className="feature-item opacity-0 p-4 border border-white/20 hover:border-white/50 transition">
-                                <h3 className="font-bold uppercase text-sm mb-2">Google Auth</h3>
-                                <p className="text-xs opacity-60">Secure authentication with Google</p>
-                            </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {['Real-Time Sync', 'Smart Alerts', 'Role Access', 'Encryption'].map((f) => (
+                                <div key={f} className="feature-item opacity-0 p-4 border border-white/20 hover:border-[#FFB800] transition group">
+                                    <h3 className="font-black uppercase text-xs md:text-sm group-hover:text-[#FFB800] transition">{f}</h3>
+                                </div>
+                            ))}
                         </div>
                     </section>
 
@@ -255,23 +226,23 @@ export default function AboutPage() {
                     <div className="cta-section text-center pt-8">
                         <Link
                             href="/login"
-                            className="cta-button opacity-0 inline-flex items-center gap-4 px-10 py-5 border-4 border-white bg-[#FFB800] text-black text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                            className="cta-button opacity-0 inline-flex items-center gap-4 px-8 py-4 md:px-12 md:py-6 border-4 border-white bg-[#FFB800] text-black text-base md:text-lg font-black uppercase tracking-widest shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:shadow-[10px_10px_0px_rgba(0,255,194,1)] hover:bg-[#00FFC2] hover:translate-x-1 hover:translate-y-1 transition-all"
                         >
-                            Get Started Now
+                            Open Dashboard
                         </Link>
                     </div>
                 </div>
             </main>
 
             {/* Footer */}
-            <footer className="border-t-2 border-white py-12">
-                <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <footer className="border-t-2 border-white/20 py-12">
+                <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
                     <div className="flex items-center gap-3">
                         <Package size={24} className="text-[#FFB800]" />
                         <span className="font-black uppercase tracking-widest">Nexus Stock</span>
                     </div>
-                    <div className="text-xs uppercase tracking-widest opacity-60">
-                        © 2026 Nexus Stock. All rights reserved.
+                    <div className="text-[10px] uppercase tracking-widest opacity-40">
+                        © 2026 Nexus Stock. All protocols secured.
                     </div>
                 </div>
             </footer>
