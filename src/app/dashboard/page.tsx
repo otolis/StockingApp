@@ -114,13 +114,30 @@ export default function DashboardPage() {
                                 const qty = Number(item.quantity) || 0;
                                 const threshold = Number(item.minThreshold) || 0;
                                 const isLowStock = qty < threshold;
+                                const statusText = qty === 0 ? 'No Stock' : isLowStock ? 'Low Stock' : 'In Stock';
+                                const statusColor = qty === 0 ? 'bg-red-600 text-white border-red-600' : isLowStock ? 'bg-amber-500/20 text-amber-500 border-amber-500' : 'bg-green-500/20 text-green-400 border-green-500';
+
                                 return (
                                     <div key={item.id} className="border-2 border-white/20 p-4 bg-white/5 hover:border-white transition-colors">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div className="font-black uppercase text-base">{item.name}</div>
-                                            <span className={`px-2 py-0.5 text-[10px] font-black uppercase border ${isLowStock ? 'bg-red-500/20 text-red-400 border-red-500' : 'bg-green-500/20 text-green-400 border-green-500'}`}>
-                                                {isLowStock ? 'Low Stock' : 'In Stock'}
-                                            </span>
+                                        <div className="flex gap-4 mb-3">
+                                            <div className="w-16 h-16 border-2 border-white/10 flex-shrink-0 overflow-hidden bg-white/5">
+                                                {item.imageUrl ? (
+                                                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center opacity-20">
+                                                        <Package size={24} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex justify-between items-start mb-1">
+                                                    <div className="font-black uppercase text-base truncate">{item.name}</div>
+                                                    <span className={`px-2 py-0.5 text-[10px] font-black uppercase border flex-shrink-0 ${statusColor}`}>
+                                                        {statusText}
+                                                    </span>
+                                                </div>
+                                                <div className="text-[10px] uppercase text-white/40 mb-1">SKU: <span className="text-xs font-mono font-bold text-white/80">{item.sku}</span></div>
+                                            </div>
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
@@ -163,21 +180,36 @@ export default function DashboardPage() {
                                     const isLowStock = qty < threshold;
                                     return (
                                         <tr key={item.id} className="border-b border-white/10 hover:bg-white/5 transition-colors">
-                                            <td className="px-6 py-4 font-bold uppercase">{item.name}</td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-10 h-10 border border-white/10 flex-shrink-0 overflow-hidden bg-white/5">
+                                                        {item.imageUrl ? (
+                                                            <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center opacity-20">
+                                                                <Package size={16} />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <span className="font-bold uppercase">{item.name}</span>
+                                                </div>
+                                            </td>
                                             <td className="px-6 py-4 opacity-60 font-mono">{item.sku}</td>
                                             <td className="px-6 py-4 text-center">
-                                                <span className={`text-lg font-black ${isLowStock ? 'text-red-500' : 'text-green-500'}`}>
+                                                <span className={`text-lg font-black ${qty === 0 ? 'text-red-600' : isLowStock ? 'text-amber-500' : 'text-green-500'}`}>
                                                     {qty}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className="border border-white/40 px-2 py-1 text-xs uppercase">
+                                                <span className="border border-white/40 px-2 py-1 text-xs uppercase text-white/60">
                                                     {item.category || "General"}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className={`px-2 py-1 text-xs font-bold uppercase ${isLowStock ? 'bg-red-500/20 text-red-400 border border-red-500' : 'bg-green-500/20 text-green-400 border border-green-500'}`}>
-                                                    {isLowStock ? 'Low Stock' : 'In Stock'}
+                                                <span className={`px-2 py-1 text-xs font-bold uppercase ${qty === 0 ? 'bg-red-600 text-white border border-red-600' :
+                                                        isLowStock ? 'bg-amber-500/20 text-amber-500 border border-amber-500' :
+                                                            'bg-green-500/20 text-green-400 border border-green-500'}`}>
+                                                    {qty === 0 ? 'No Stock' : isLowStock ? 'Low Stock' : 'In Stock'}
                                                 </span>
                                             </td>
                                         </tr>

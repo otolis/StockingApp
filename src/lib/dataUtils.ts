@@ -14,6 +14,7 @@ export function normalizeInventoryItem(docId: string, rawData: any): InventoryIt
         category: cleanKey("category") || "",
         quantity: cleanKey("quantity") ?? 0,
         minThreshold: cleanKey("minThreshold") ?? 0,
+        imageUrl: cleanKey("imageUrl") || "",
         organizationId: cleanKey("organizationId") || "",
         createdAt: cleanKey("createdAt"),
         updatedAt: cleanKey("updatedAt"),

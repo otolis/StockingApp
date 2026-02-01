@@ -8,6 +8,7 @@ import { db } from "@/lib/firebase";
 import { Package, ArrowLeft, User, Camera, Save, Settings as GearIcon, Menu } from "lucide-react";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
+import ImageUpload from "@/components/ImageUpload";
 
 export default function SettingsPage() {
     const { user, loading, logout } = useAuth();
@@ -103,25 +104,11 @@ export default function SettingsPage() {
                             <label className="block text-xs font-bold uppercase text-white/60 mb-4">
                                 Profile Picture
                             </label>
-                            <div className="flex items-center gap-6">
-                                <div className="w-24 h-24 border-2 border-white flex items-center justify-center font-black text-3xl overflow-hidden">
-                                    {photoURL ? (
-                                        <img src={photoURL} alt="Profile" className="w-full h-full object-cover" />
-                                    ) : (
-                                        <User size={40} className="opacity-40" />
-                                    )}
-                                </div>
-                                <div className="flex-1">
-                                    <input
-                                        type="text"
-                                        placeholder="Paste image URL..."
-                                        value={photoURL}
-                                        onChange={(e) => setPhotoURL(e.target.value)}
-                                        className="w-full px-4 py-3 border-2 border-white bg-transparent outline-none focus:bg-white/5 transition font-mono text-sm"
-                                    />
-                                    <p className="text-xs text-white/40 mt-2">Enter a URL to an image (e.g., from Google Photos or Imgur)</p>
-                                </div>
-                            </div>
+                            <ImageUpload
+                                currentImageUrl={photoURL}
+                                onUploadComplete={(url) => setPhotoURL(url)}
+                                folder="profiles"
+                            />
                         </div>
 
                         {/* Display Name */}

@@ -24,6 +24,7 @@ export interface InventoryItem {
   category: string;
   quantity: number;
   minThreshold: number;
+  imageUrl?: string;
   organizationId: string;
   createdAt: Date | any;
   updatedAt: Date | any;

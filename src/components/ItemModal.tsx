@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { InventoryItem } from "@/types";
-import { X } from "lucide-react";
+import { X, Camera } from "lucide-react";
+import ImageUpload from "./ImageUpload";
 
 interface ItemModalProps {
     isOpen: boolean;
@@ -25,6 +26,7 @@ export default function ItemModal({
         category: "",
         quantity: 0,
         minThreshold: 5,
+        imageUrl: "",
     });
     const [loading, setLoading] = useState(false);
 
@@ -36,6 +38,7 @@ export default function ItemModal({
                 category: initialData.category,
                 quantity: initialData.quantity,
                 minThreshold: initialData.minThreshold,
+                imageUrl: initialData.imageUrl || "",
             });
         } else {
             setFormData({
@@ -44,6 +47,7 @@ export default function ItemModal({
                 category: categories[0] || "",
                 quantity: 0,
                 minThreshold: 5,
+                imageUrl: "",
             });
         }
     }, [initialData, categories, isOpen]);
@@ -136,6 +140,15 @@ export default function ItemModal({
                                 onChange={(e) => setFormData({ ...formData, minThreshold: parseInt(e.target.value) })}
                             />
                         </div>
+                    </div>
+
+                    <div>
+                        <div className="technicalLabel">Item Image</div>
+                        <ImageUpload
+                            currentImageUrl={formData.imageUrl}
+                            onUploadComplete={(url) => setFormData({ ...formData, imageUrl: url })}
+                            folder="items"
+                        />
                     </div>
 
                     <div className="pt-4 flex gap-4">
